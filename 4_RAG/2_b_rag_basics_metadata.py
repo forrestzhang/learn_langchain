@@ -22,8 +22,8 @@ db = Chroma(persist_directory=persistent_directory, embedding_function=embedding
 query = "How did Juliet die?"
 
 
-retriever = db.as_retriever(search_type="mmr", 
-                            search_kwargs={"k":3, "score_threshold": 0.8})
+retriever = db.as_retriever(search_type="similarity_score_threshold", 
+                            search_kwargs={"k":3, "score_threshold": 0.4})
 
 relevant_docs = retriever.invoke(query)
 
