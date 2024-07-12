@@ -36,7 +36,7 @@ if not os.path.exists(persistent_directory):
             doc.metadata = {"source": book_file}
             documents.append(doc)
 
-    text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=100)
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 
     docs = text_splitter.split_documents(documents)
 
