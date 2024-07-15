@@ -9,7 +9,7 @@ persistent_directory = os.path.join(current_dir, "db", "chroma_db_with_metadata"
 
 # embedding = OllamaEmbeddings(model='nomic-embed-text')
 model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
-encode_kwargs = {'normalize_embeddings': False}
+encode_kwargs = {'normalize_embeddings': True}
 model_name = "BAAI/bge-base-en-v1.5"
 embeddings = HuggingFaceEmbeddings(model_name=model_name, 
                                        model_kwargs=model_kwargs,

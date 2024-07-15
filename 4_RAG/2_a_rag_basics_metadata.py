@@ -1,6 +1,6 @@
 import os
 
-from langchain.text_splitter import CharacterTextSplitter
+from langchain.text_splitter import CharacterTextSplitter,RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OllamaEmbeddings
@@ -22,12 +22,13 @@ if not os.path.exists(persistent_directory):
     if not os.path.exists(books_dir):
         raise FileNotFoundError(f"Books directory {books_dir} not found")
     
-    book_fils = [f for f in os.listdir(books_dir) if f.endswith(".txt")]
+    book_files = [f for f in os.listdir(books_dir) if f.endswith(".txt")]
 
     documents = []
 
-    for book_file in book_fils:
+    for book_file in book_files:
         file_path = os.path.join(books_dir, book_file)
+        # print(f"Loading book: {file_path}")
 
         loader = TextLoader(file_path)
 
@@ -37,18 +38,18 @@ if not os.path.exists(persistent_directory):
             doc.metadata = {"source": book_file}
             documents.append(doc)
 
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 
     docs = text_splitter.split_documents(documents)
 
     print("\n ----Document Chunks Information----")
     print(f"Number of documents: {len(docs)}")
-
+    print(book_files)
     # embeddings = OllamaEmbeddings(model='nomic-embed-text',
     #                               base_url="http://gpuserver:11434",
     #                               show_progress=True)
     model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
-    encode_kwargs = {'normalize_embeddings': False}
+    encode_kwargs = {'normalize_embeddings': True}
     model_name = "BAAI/bge-base-en-v1.5"
     embeddings = HuggingFaceEmbeddings(model_name=model_name, 
                                        model_kwargs=model_kwargs,
