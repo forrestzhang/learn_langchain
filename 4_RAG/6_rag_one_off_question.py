@@ -2,29 +2,31 @@ import os
 
 from langchain_community.vectorstores import Chroma
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings, OllamaEmbeddings
 from langchain_community.chat_models import ChatOllama
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 persistent_directory = os.path.join(current_dir, "db", "chroma_db_with_metadata")
 
-model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
-encode_kwargs = {'normalize_embeddings': True}
-model_name = "BAAI/bge-base-en-v1.5"
-embeddings = HuggingFaceEmbeddings(model_name=model_name, 
-                                    model_kwargs=model_kwargs,
-                                    encode_kwargs=encode_kwargs,
-                                    show_progress=True)
-
+# model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
+# encode_kwargs = {'normalize_embeddings': True}
+# model_name = "BAAI/bge-base-en-v1.5"
+# embeddings = HuggingFaceEmbeddings(model_name=model_name, 
+#                                     model_kwargs=model_kwargs,
+#                                     encode_kwargs=encode_kwargs,
+#                                     show_progress=True)
+embeddings = OllamaEmbeddings(model='nomic-embed-text',
+                                  base_url="http://gpuserver:11434",
+                                  show_progress=True)
 
 db = Chroma(persist_directory=persistent_directory, 
             embedding_function=embeddings)
 
 
-query = "How to learn LangChain"
+query ="How to learn LangChain?"
 
 retriever = db.as_retriever(search_type="mmr", 
-                            search_kwargs={"k":1, "score_threshold": 0.4})
+                            search_kwargs={"k":3, "score_threshold": 0.4})
 
 # retriever = db.as_retriever(search_type="mmr", 
 #                             search_kwargs={"k":2})

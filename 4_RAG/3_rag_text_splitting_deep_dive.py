@@ -7,7 +7,7 @@ from langchain.text_splitter import (CharacterTextSplitter,
                                      TokenTextSplitter)
 from langchain_community.vectorstores import Chroma
 from langchain_community.document_loaders import TextLoader
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings, OllamaEmbeddings
 
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
@@ -18,13 +18,16 @@ if not os.path.exists(db_dir):
     raise FileNotFoundError(f"DB directory {db_dir} not found")
 
 
-model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
-encode_kwargs = {'normalize_embeddings': True}
-model_name = "BAAI/bge-base-en-v1.5"
-embeddings = HuggingFaceEmbeddings(model_name=model_name, 
-                                       model_kwargs=model_kwargs,
-                                        encode_kwargs=encode_kwargs,
-                                       show_progress=True)
+# model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
+# encode_kwargs = {'normalize_embeddings': True}
+# model_name = "BAAI/bge-base-en-v1.5"
+# embeddings = HuggingFaceEmbeddings(model_name=model_name, 
+#                                        model_kwargs=model_kwargs,
+#                                         encode_kwargs=encode_kwargs,
+#                                        show_progress=True)
+embeddings = OllamaEmbeddings(model='nomic-embed-text',
+                                  base_url="http://gpuserver:11434",
+                                  show_progress=True)
 
 db = Chroma(persist_directory=db_dir, embedding_function=embeddings)
 

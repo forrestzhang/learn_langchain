@@ -45,16 +45,16 @@ if not os.path.exists(persistent_directory):
     print("\n ----Document Chunks Information----")
     print(f"Number of documents: {len(docs)}")
     print(book_files)
-    # embeddings = OllamaEmbeddings(model='nomic-embed-text',
-    #                               base_url="http://gpuserver:11434",
-    #                               show_progress=True)
-    model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
-    encode_kwargs = {'normalize_embeddings': True}
-    model_name = "BAAI/bge-base-en-v1.5"
-    embeddings = HuggingFaceEmbeddings(model_name=model_name, 
-                                       model_kwargs=model_kwargs,
-                                        encode_kwargs=encode_kwargs,
-                                       show_progress=True)
+    embeddings = OllamaEmbeddings(model='nomic-embed-text',
+                                  base_url="http://gpuserver:11434",
+                                  show_progress=True)
+    # model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
+    # encode_kwargs = {'normalize_embeddings': True}
+    # model_name = "BAAI/bge-base-en-v1.5"
+    # embeddings = HuggingFaceEmbeddings(model_name=model_name, 
+    #                                    model_kwargs=model_kwargs,
+    #                                     encode_kwargs=encode_kwargs,
+    #                                    show_progress=True)
 
     db = Chroma.from_documents(documents=docs, 
                                embedding=embeddings, 
