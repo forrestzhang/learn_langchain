@@ -3,7 +3,7 @@ from langchain_core.messages import HumanMessage
 from langchain_ollama import ChatOllama
 
 
-model = ChatOllama(model='llama3')
+model = ChatOllama(model='llama3.1')
 
 # Part 1, Prompt with one placeholder
 template = "Tell me a joke about {topic}."
