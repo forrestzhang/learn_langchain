@@ -3,7 +3,7 @@ import os
 from langchain_community.vectorstores import Chroma
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_community.embeddings import HuggingFaceEmbeddings, OllamaEmbeddings
-from langchain_community.chat_models import ChatOllama
+from langchain_ollama import ChatOllama
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 persistent_directory = os.path.join(current_dir, "db", "chroma_db_with_metadata")

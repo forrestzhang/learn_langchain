@@ -1,7 +1,7 @@
-from langchain_community.chat_models import ChatOllama
+from langchain_ollama import ChatOllama
 
 
-model = ChatOllama(model='llama3')
+model = ChatOllama(model='llama3.1')
 
 # result = model.invoke("What is 81 divided by 9?")
 result = model.invoke("81除以9是几?")

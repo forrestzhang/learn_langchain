@@ -1,9 +1,9 @@
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
-from langchain_community.chat_models import ChatOllama
+from langchain_ollama import ChatOllama
 from langchain_community.chat_message_histories.file import FileChatMessageHistory
 
 
-model = ChatOllama(model="llama3")
+model = ChatOllama(model="llama3.1")
 
 chat_history = FileChatMessageHistory("chat_history.json")
 

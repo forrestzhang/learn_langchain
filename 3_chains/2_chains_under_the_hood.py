@@ -1,6 +1,6 @@
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.runnable import RunnableLambda, RunnableSequence
-from langchain_community.chat_models import ChatOllama
+from langchain_ollama import ChatOllama
 
 model = ChatOllama(model='glm4')
 

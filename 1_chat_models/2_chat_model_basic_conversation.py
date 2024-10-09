@@ -1,7 +1,7 @@
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
-from langchain_community.chat_models import ChatOllama
+from langchain_ollama import ChatOllama
 
-model = ChatOllama(model='llama3')
+model = ChatOllama(model='llama3.1')
 
 messages = [
     SystemMessage(content="Solve the following math problems"),

@@ -1,6 +1,6 @@
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.output_parser import StrOutputParser
-from langchain_community.chat_models import ChatOllama
+from langchain_ollama import ChatOllama
 
 model = ChatOllama(model='glm4')
 
