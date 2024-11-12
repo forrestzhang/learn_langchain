@@ -16,7 +16,7 @@ embedding = OllamaEmbeddings(model='nomic-embed-text')
 #                                         encode_kwargs=encode_kwargs,
 #                                        show_progress=True)
 
-db = Chroma(persist_directory=persistent_directory, embedding_function=embeddings)
+db = Chroma(persist_directory=persistent_directory, embedding_function=embedding)
 
 
 query = "How did Juliet die?"
