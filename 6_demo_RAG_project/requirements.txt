@@ -1,0 +1,9 @@
+python-dotenv
+langchain
+langchain-community
+faiss-cpu
+ollama
+langchain-ollama
+marimo
+unstructured
+markdown

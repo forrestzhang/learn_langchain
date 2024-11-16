@@ -1,0 +1,12 @@
+6_demo_RAG_project/
+├── .env
+├── README.md
+├── data/
+│   ├── markdown_files/
+│   └── faiss_vectorstore/
+├── src/
+│   ├── __init__.py
+│   ├── data_processing.py
+│   ├── model.py
+│   └── main.py
+└── requirements.txt 

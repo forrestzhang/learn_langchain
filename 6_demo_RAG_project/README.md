@@ -2,33 +2,30 @@
 
 ## 1. 项目介绍
 
-- 项目名称：基于langchain的RAG的智能问答系统
-- 项目目标：实现一个基于langchain的RAG的智能问答系统，能够根据用户的问题，从知识库中检索出相关的信息，并给出回答。
+- 项目名称：基于 langchain 的 RAG 智能问答系统
+- 项目目标：实现一个基于 langchain 的 RAG 智能问答系统，能够根据用户的问题，从知识库中检索出相关的信息，并给出回答。
 
 ## 2. 项目架构
 
-- 使用langchain的RAG技术，从知识库中检索出相关的信息。
-- 使用langgraph将agent技术串联起来，形成一个完整的流程。
-- 使用marimo来可视化整个流程。
+### 2.1 数据层
 
-## 3. 项目实现
+- 使用 langchain 的 RAG 技术，从知识库中检索相关信息
+- 原始数据为 markdown 格式，加载文档
+- 使用 RecursiveCharacterTextSplitter 逐个对文档进行分割，并进行向量化
+- 使用 FAISS 向量数据库存储文档向量，数据按照增量方式存储，不添加重复数据
 
-环境配置信息存放在.env文件中，请根据实际情况进行配置。
+### 2.2 模型层
 
-### 3.1 数据层
+- LLM：使用 Ollama 部署的 Qwen2.5-7B-32k
+- Embedding：使用 Ollama 部署的 mxbai-embed-large
 
-- 使用langchain的RAG技术，从知识库中检索出相关的信息。
-- 原始数据为markdown格式，使用langchain的loader技术，将markdown文件加载为document。数据存放在data/markdown_files/目录下。
-- 使用langchain的text_splitter技术，将document切分为小的chunks。
-- 使用langchain的vectorstore技术，将chunks向量化，并存储到faiss vectorstore中, faiss vectorstore存放在data/faiss_vectorstore/目录下。
-- 使用langchain的retriever技术，从faiss vectorstore中检索出相关的信息。
+### 2.3 检索层
 
-### 3.2 模型层
+- 使用 FAISS 进行向量检索
+- 支持相似度搜索
+- 支持上下文关联
 
-- 大语言模型平台为Ollama，模型为qwen2.5:7b-32k, 可以在.env文件中进行配置，预留base_url。
-- Embedding模型平台为Ollama，模型为mxbai-embed-large, 可以在.env文件中进行配置，预留base_url。
+## 3. 代码结构
 
-### 3.3 流程层
-
-- 使用langgraph将agent技术串联起来，形成一个完整的流程。
-- 使用marimo来可视化整个流程。
+- src/data_processing.py：数据处理模块，负责数据加载、分割、向量化、存储
+- src/query.py：查询模块，负责根据用户的问题进行检索、问答
