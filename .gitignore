@@ -161,3 +161,5 @@ cython_debug/
 .idea/
 
 /4_RAG/db/
+.env
+.DS_Store
